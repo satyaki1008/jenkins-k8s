@@ -7,14 +7,15 @@ node {
 	//sh 'sudo apt-get update && apt-get install -y kubectl'
 	sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl'
 	sh 'chmod +x ./kubectl'
-	sh 'export PATH=$PATH:$PWD'
+	sh 'export PATH=$PATH:$PWD/..'
+	sh 'mv kubectl ..'
   }
 
   stage('Integration') {
  	sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl'
 	sh 'chmod +x ./kubectl'
-	sh 'export PATH=$PATH:$PWD'
-	sh 'ls -lsa && ls -lsa ..'
+	sh 'export PATH=$PATH:$PWD/..'
+	sh 'mv kubectl ..'
 	sh 'kubectl version'
     withKubeConfig([credentialsId: 'jenkins-deployer-credentials', serverUrl: 'https://104.155.31.202']) {
       sh 'cd /home/jenkins/workspace'
