@@ -17,6 +17,7 @@ node {
 	sh 'dpkg --print-architecture '
 	tool name: 'Kubectl', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
 	sh 'env'
+	sh 'ls -lsa /home/jenkins/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/Kubectl'
 	sh 'kubectl version'
   }
 
