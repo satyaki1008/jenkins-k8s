@@ -1,10 +1,10 @@
 //Jenkinsfile
 node {
   stage('Preparation') {
-    sh 'apt-get update && apt-get install -y apt-transport-https'
-	sh 'curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -'
-	sh 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main">> /etc/apt/sources.list.d/kubernetes.list'
-	sh 'apt-get update && apt-get install -y kubectl'
+    sh 'sudo apt-get update && apt-get install -y apt-transport-https'
+	sh 'curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -'
+	sh 'sudo echo "deb http://apt.kubernetes.io/ kubernetes-xenial main">> /etc/apt/sources.list.d/kubernetes.list'
+	sh 'sudo apt-get update && apt-get install -y kubectl'
   }
 
   stage('Integration') {
