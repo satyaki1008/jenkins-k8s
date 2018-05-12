@@ -1,6 +1,6 @@
 //Jenkinsfile
 node {
-  withEnv(['PATH=${env.PATH}:/home/jenkins/workspace']){
+  withEnv(['PATH+JENKINSPATH=/home/jenkins/workspace']){
       
   
 
