@@ -1,6 +1,6 @@
 //Jenkinsfile
 node {
-  withEnv(['PATH+JENKINSPATH=/home/jenkins/workspace/training-jenkins-kubernetes']){
+  withEnv(["PATH+JENKINSPATH=${tool 'Kubectl'}"]){
       
   
 
