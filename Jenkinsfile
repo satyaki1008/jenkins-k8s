@@ -10,8 +10,9 @@ node {
 	//sh 'sudo echo "deb http://apt.kubernetes.io/ kubernetes-xenial main">> /etc/apt/sources.list.d/kubernetes.list'
 	//sh 'sudo apt-get update && apt-get install -y kubectl'
 	sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl'
-	sh 'chmod +x ./kubectl'
+	sh 'chmod 777 ./kubectl'
 	sh 'mv kubectl ..'
+	sh 'ls -lsa /home/jenkins/workspace'
 	sh 'kubectl version'
   }
 
