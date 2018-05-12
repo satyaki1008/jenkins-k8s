@@ -1,5 +1,9 @@
 //Jenkinsfile
 node {
+  withEnv(['PATH=${env.PATH}:/home/jenkins/workspace']){
+      
+  
+
   stage('Preparation') {
     //sh 'sudo apt-get update && apt-get install -y apt-transport-https'
 	//sh 'curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -'
@@ -7,15 +11,13 @@ node {
 	//sh 'sudo apt-get update && apt-get install -y kubectl'
 	sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl'
 	sh 'chmod +x ./kubectl'
-	sh 'export PATH=$PATH:$PWD/..'
 	sh 'mv kubectl ..'
   }
 
   stage('Integration') {
- 	sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl'
-	sh 'chmod +x ./kubectl'
-	sh 'export PATH=$PATH:$PWD/..'
-	sh 'mv kubectl ..'
+ 	//sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl'
+	//sh 'chmod +x ./kubectl'
+	//sh 'mv kubectl ..'
 	sh 'kubectl version'
     withKubeConfig([credentialsId: 'jenkins-deployer-credentials', serverUrl: 'https://104.155.31.202']) {
       sh 'cd /home/jenkins/workspace'
@@ -48,5 +50,6 @@ node {
 	  sh 'chmod +x tests/production-tests.sh && ./tests/production-tests.sh'                                       
     
     }
+  }
   }
 }
