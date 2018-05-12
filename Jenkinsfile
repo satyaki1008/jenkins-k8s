@@ -1,7 +1,14 @@
 //Jenkinsfile
 node {
+  stage('Preparation') {
+    sh 'apt-get update && apt-get install -y apt-transport-https'
+	sh 'curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -'
+	sh 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main">> /etc/apt/sources.list.d/kubernetes.list'
+	sh 'apt-get update && apt-get install -y kubectl'
+  }
+
   stage('Integration') {
-    withKubeConfig([credentialsId: '<credential-id>', serverUrl: '<api-server-address>']) {
+    withKubeConfig([credentialsId: 'jenkins-deployer-credentials', serverUrl: 'https://104.155.31.202']) {
       sh 'cd /home/jenkins/workspace'
       sh 'kubectl create cm nodejs-app --from-file=src/ --namespace=myapp-integration --dry-run | kubectl apply -f -'
       sh 'kubectl apply -f deploy/ --namespace=myapp-integration'
