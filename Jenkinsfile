@@ -13,6 +13,7 @@ node {
 	//sh 'chmod 777 ./kubectl'
 	//sh 'mv kubectl ..'
 	//sh 'ls -lsa /home/jenkins/workspace'
+	sh 'uname -a'
 	tool name: 'Kubectl', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
 	sh 'kubectl version'
   }
