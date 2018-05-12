@@ -1,10 +1,13 @@
 //Jenkinsfile
 node {
   stage('Preparation') {
-    sh 'sudo apt-get update && apt-get install -y apt-transport-https'
-	sh 'curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -'
-	sh 'sudo echo "deb http://apt.kubernetes.io/ kubernetes-xenial main">> /etc/apt/sources.list.d/kubernetes.list'
-	sh 'sudo apt-get update && apt-get install -y kubectl'
+    //sh 'sudo apt-get update && apt-get install -y apt-transport-https'
+	//sh 'curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -'
+	//sh 'sudo echo "deb http://apt.kubernetes.io/ kubernetes-xenial main">> /etc/apt/sources.list.d/kubernetes.list'
+	//sh 'sudo apt-get update && apt-get install -y kubectl'
+	sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl'
+	sh 'chmod +x ./kubectl'
+	sh 'export PATH=$PATH:$PWD'
   }
 
   stage('Integration') {
