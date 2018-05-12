@@ -1,6 +1,6 @@
 //Jenkinsfile
 node {
-  withEnv(['PATH+JENKINSPATH=/home/jenkins/workspace']){
+  withEnv(['PATH+JENKINSPATH=/home/jenkins/workspace/training-jenkins-kubernetes']){
       
   
 
@@ -16,6 +16,7 @@ node {
 	sh 'uname -a'
 	sh 'dpkg --print-architecture '
 	tool name: 'Kubectl', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+	sh 'env'
 	sh 'kubectl version'
   }
 
