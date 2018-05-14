@@ -10,7 +10,8 @@ node {
 
   stage('Integration') {
 	tool name: 'Kubectl'
-	sh 'ls -lsa /home/jenkins/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/Kubectl'
+	sh 'ls -lsa /home/jenkins/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/Kubectl/kubectl/bin'
+	sh 'env'
 	sh 'kubectl version'
     withKubeConfig([credentialsId: 'jenkins-deployer-credentials', serverUrl: 'https://104.155.31.202']) {
       
