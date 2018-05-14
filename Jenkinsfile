@@ -1,11 +1,11 @@
 //Jenkinsfile
 node {
   //Adding kubectl path to PATH environment variable
-  withEnv(["PATH+JENKINSPATH=${tool 'Kubectl'}"]){
+  //withEnv(["PATH+JENKINSPATH=${tool 'Kubectl'}"]){
 
   stage('Preparation') {
     //Installing kubectl in Jenkins agent
-	tool name: 'Kubectl', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+	//tool name: 'Kubectl', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
   }
 
   stage('Integration') {
@@ -53,5 +53,5 @@ node {
 	  sh 'chmod +x tests/production-tests.sh && ./tests/production-tests.sh $MYAPP_IP'                                         
     }
   }
-  }
+  //}
 }
