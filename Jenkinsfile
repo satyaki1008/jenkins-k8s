@@ -26,13 +26,14 @@ node {
       	println("Waiting for IP address")       	
       	while(ip=='' && count<countLimit) {
       		sleep 30
-      		ip = sh(script:'kubectl get svc --namespace=myapp-integration -o jsonpath="{.items[?(@.metadata.name==\'nginx-reverseproxy-service\')].status.loadBalancer.ingress[*].ip}")', returnStdout: true).trim()
+      		ip = sh script:'kubectl get svc --namespace=myapp-integration -o jsonpath="{.items[?(@.metadata.name==\'nginx-reverseproxy-service\')].status.loadBalancer.ingress[*].ip}")', returnStdout: true
+      		ip=ip.trim
       		count++                                                                              
       	}
       	
 		if(ip==''){
-			println("Not able to get the IP address. Aborting...")
-		    return
+			error("Not able to get the IP address. Aborting...")
+		    
 		}
 		else{
 		            //Executing tests 
@@ -46,11 +47,10 @@ node {
      
       }
       catch(Exception e) {
-      	println("Integration stage aborted.")
+      	println("Integration stage failed.")
 	  	println("Cleaning integration environment...")
 	  	sh 'kubectl delete -f deploy --namespace=myapp-integration'
-      	println("Exiting...")
-      	return                                       
+      	error("Exiting...")                                     
       }
 
     }
@@ -71,7 +71,8 @@ node {
       	println("Waiting for IP address")       	
       	while(ip=='' && count<countLimit) {
       		sleep 30
-      		ip = sh(script:'kubectl get svc --namespace=myapp-production -o jsonpath="{.items[?(@.metadata.name==\'nginx-reverseproxy-service\')].status.loadBalancer.ingress[*].ip}")', returnStdout: true).trim()
+      		ip = sh script: 'kubectl get svc --namespace=myapp-production -o jsonpath="{.items[?(@.metadata.name==\'nginx-reverseproxy-service\')].status.loadBalancer.ingress[*].ip}")', returnStdout: true
+      		ip = ip.trim()
       		count++                                                                              
       	}
       	
