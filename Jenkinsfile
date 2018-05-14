@@ -9,7 +9,7 @@ node {
   }
 
   stage('Integration') {
-	tool name: 'Kubectl'
+	tool name: 'Kubectl', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
 	sh 'ls -lsa /home/jenkins/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/Kubectl/kubectl/bin'
 	sh 'env'
 	sh 'kubectl version'
