@@ -23,7 +23,7 @@ node {
 	sh 'kubectl version'
     withKubeConfig([credentialsId: 'jenkins-deployer-credentials', serverUrl: 'https://104.155.31.202']) {
       
-      sh 'kubectl create cm nodejs-app --from-file=jenkins-pipeline/src/ --namespace=myapp-integration --dry-run | kubectl apply -f -'
+      sh 'kubectl create cm nodejs-app --from-file=src/ --namespace=myapp-integration --dry-run | kubectl apply -f -'
       sh 'kubectl apply -f deploy/ --namespace=myapp-integration'
       try{
       	//Gathering Node.js app's external IP address
