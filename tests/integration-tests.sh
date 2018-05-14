@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # integration-tests.sh
 echo "Starting integration tests..."
 echo "Testing root path..."
