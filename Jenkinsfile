@@ -1,7 +1,7 @@
 //Jenkinsfile
 node {
   //Adding kubectl path to PATH environment variable
-  //withEnv(["PATH+JENKINSPATH=${tool 'Kubectl'}"]){
+  //withEnv(["PATH+JENKINSPATH=/kubectl/bin'}"]){
 
   stage('Preparation') {
     //Installing kubectl in Jenkins agent
@@ -9,9 +9,14 @@ node {
   }
 
   stage('Integration') {
-	tool name: 'Kubectl', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
-	sh 'ls -lsa /home/jenkins/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/Kubectl/kubectl/bin'
+	//tool name: 'Kubectl', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+	//sh 'ls -lsa /home/jenkins/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/Kubectl/kubectl/bin'
+	sh 'ls -lsa /usr/local/sbin'
+	sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
+	sh 'chmod +x./kubectl && mv kubectl /usr/local/sbin'
+	sh 'ls -lsa /usr/local/sbin'
 	sh 'env'
+	
 	sh 'kubectl version'
     withKubeConfig([credentialsId: 'jenkins-deployer-credentials', serverUrl: 'https://104.155.31.202']) {
       
